@@ -16,19 +16,18 @@ import java.math.BigDecimal;
 public class Beer {
 
     @Id
-    @SequenceGenerator(name = "beer_seq", sequenceName = "beer_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beer_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "beers-1")
     private String  name;
 
-    @NotNull
+    @NotNull(message = "beers-2")
     private BeerType type;
 
-    @NotNull
-    @DecimalMin("0")
+    @NotNull(message = "beers-3")
+    @DecimalMin(value = "0", message = "beers-4")
     private BigDecimal volume;
 
 
