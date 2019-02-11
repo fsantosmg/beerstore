@@ -6,6 +6,7 @@ import net.valorweb.beerstore.service.BeerService;
 import net.valorweb.beerstore.service.exception.BeerAlreadyExistException;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.math.BigDecimal;
 
@@ -13,6 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class BeerServiceTest {
+
+    @Mock
 
     private BeerService beerService;
 
