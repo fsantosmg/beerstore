@@ -3,6 +3,7 @@ package net.valorweb.beerstore.error;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
 import net.valorweb.beerstore.error.ErrorResponse.ApiError;
+import net.valorweb.beerstore.service.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -48,10 +49,14 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleInternalServerError(BusinessException exception, Locale locale){
+        final String errorCode = exception.getCode();
+        final HttpStatus status = exception.getStatus();
 
-
-
-
+        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale));
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
 
     public ApiError toApiError(String code, Locale locale, Object... args) {
 
